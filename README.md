@@ -7,6 +7,8 @@
 
 A **Retrieval-Augmented Generation (RAG)** framework with self-reflection capabilities, powered by **LangChain**, **LangGraph**, and **Groq**. It evaluates document relevance, detects hallucinations, and assesses answer quality to build smarter, reliable RAG systems.
 
+* Building a Self-RAG | Making your Agentic workflows critique through Self-Reflection | LangChain
+
 ## ✨ Features
 
 - 📚 **Semantic Document Retrieval**: Uses FAISS for efficient vector search.
