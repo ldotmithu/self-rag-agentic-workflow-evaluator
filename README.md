@@ -1,181 +1,151 @@
-# Self-RAG Agentic Workflow Evaluator
+# 🤖 Self-RAG Agentic Workflow Evaluator
 
-- Building a Self-RAG | Making your Agentic workflows critique through Self-Reflection | LangChain
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+[![LangChain](https://img.shields.io/badge/LangChain-Framework-green.svg)](https://www.langchain.com/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Workflow-orange.svg)](https://www.langchain.com/langgraph)
+[![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
-- A Retrieval-Augmented Generation (RAG) system with self-evaluation capabilities that grades document relevance, checks for hallucinations, and assesses answer quality using LangGraph and LangChain.
+A **Retrieval-Augmented Generation (RAG)** framework with self-reflection capabilities, powered by **LangChain**, **LangGraph**, and **Groq**. It evaluates document relevance, detects hallucinations, and assesses answer quality to build smarter, reliable RAG systems.
 
-## Features
+## ✨ Features
 
-- **Document Retrieval**: Vector-based semantic search using FAISS
-- **Relevance Grading**: LLM-powered evaluation of document relevance
-- **Hallucination Detection**: Automated checking for factual accuracy
-- **Answer Quality Assessment**: Evaluation of generated answers
-- **Agentic Workflow**: State-based graph workflow using LangGraph
-- **Interactive Chat Interface**: Command-line interface for testing
+- 📚 **Semantic Document Retrieval**: Uses FAISS for efficient vector search.
+- 🎯 **Relevance Grading**: LLM-powered scoring of retrieved documents.
+- 🚨 **Hallucination Detection**: Verifies response factuality against documents.
+- ✅ **Answer Quality Assessment**: Ensures responses are accurate and relevant.
+- 🔄 **Agentic Workflow**: State-driven orchestration with LangGraph.
+- 💬 **Interactive CLI**: Test the system via a command-line chat interface.
 
-## Architecture
+## 🏗️ Architecture
 
 The system follows a multi-step workflow:
 
-1. **Vector Store Creation**: PDF document processing and embedding
-2. **Document Retrieval**: Semantic search based on user queries
-3. **Relevance Grading**: LLM evaluation of retrieved documents
-4. **Answer Generation**: Context-aware response generation
-5. **Hallucination Checking**: Factual accuracy verification
-6. **Answer Grading**: Final quality assessment
+1. 📂 **Vector Store Creation**: Processes PDFs and builds a FAISS index.
+2. 🔍 **Document Retrieval**: Retrieves documents based on semantic similarity.
+3. 🎯 **Relevance Grading**: Evaluates document usefulness for the query.
+4. ✍️ **Answer Generation**: Creates context-aware responses.
+5. 🚨 **Hallucination Checking**: Validates response accuracy.
+6. ✅ **Answer Grading**: Assesses response quality and relevance.
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 self-rag-agentic-workflow-evaluator/
 ├── src/
 │   ├── __init__.py
-│   ├── build_index.py          # Vector store creation
+│   ├── build_index.py         # Builds FAISS vector store
 │   ├── helper.py              # Core RAG functions
-│   ├── state.py               # Type definitions and models
+│   ├── state.py               # Workflow state and grading models
 │   └── workflow.py            # LangGraph workflow definition
 ├── prompt/
-│   ├── __int__.py
+│   ├── __init__.py
 │   └── state_prompt.py        # Prompt templates
 ├── Data/
-│   └── attention-is-all-you-need-Paper.pdf"  # Example document
-├── local_chat.py              # Interactive chat interface
-├── loacl_chat.py              # Original chat interface (backup)
+│   └── attention-is-all-you-need-Paper.pdf  # Sample document
+├── local_chat.py              # CLI-based chat interface
 ├── notebook.ipynb             # Jupyter notebook for experimentation
 └── README.md
 ```
 
-## Installation
+## ⚡ Installation
 
-1. Clone the repository:
-```bash
-git clone https://github.com/ldotmithu/self-rag-agentic-workflow-evaluator.git
-cd self-rag-agentic-workflow-evaluator
-```
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/ldotmithu/self-rag-agentic-workflow-evaluator.git
+   cd self-rag-agentic-workflow-evaluator
+   ```
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+2. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3. Set up environment variables:
-```bash
-export GROQ_API_KEY="your_groq_api_key_here"
-```
+3. **Set Up Environment Variables**:
+   Create a `.env` file in the root directory:
+   ```bash
+   GROQ_API_KEY=your_groq_api_key_here
+   ```
 
-## Usage
+## 🚀 Usage
 
-### 1. Create Vector Store
-```bash
-python src/build_index.py
-```
+1. **Build the Vector Store**:
+   ```bash
+   python src/build_index.py
+   ```
 
-### 2. Run Interactive Chat
-```bash
-python local_chat.py
-```
+2. **Run the Interactive Chat**:
+   ```bash
+   python local_chat.py
+   ```
 
-### 3. Use in Code
-```python
-from src.workflow import BuildGraph
+3. **Use in Python Code**:
+   ```python
+   from src.workflow import BuildGraph
 
-workflow = BuildGraph()
-graph = workflow.build_graph()
+   workflow = BuildGraph()
+   graph = workflow.build_graph()
+   response = graph.invoke({"question": "What is Machine Learning?"})
+   print(response)
+   ```
 
-# Invoke with a question
-response = graph.invoke({
-    "question": "Your question here"
-})
-```
+## 🧩 Key Components
 
-## Key Components
+### 📌 State Management (`src/state.py`)
+- **AgentState**: Manages workflow state.
+- **GradeDocuments**: Scores document relevance.
+- **GradeHallucinations**: Detects factual inaccuracies.
+- **GradeAnswer**: Validates answer quality.
 
-### State Management (`src/state.py`)
-- `AgentState`: TypedDict for workflow state management
-- `GradeDocuments`: Pydantic model for document relevance scoring
-- `GradeHallucinations`: Model for hallucination detection
-- `GradeAnswer`: Model for answer quality assessment
+### 📌 Core Functions (`src/helper.py`)
+- `create_model()`: Initializes the ChatGroq model.
+- `build_vector_store()`: Creates the FAISS index.
+- `get_relevant_documents()`: Retrieves relevant documents.
+- `grade_document()`: Scores document relevance.
+- `generate_answer()`: Produces context-aware responses.
+- `check_hallucination()`: Identifies factual errors.
+- `grade_answer()`: Evaluates response quality.
 
-### Core Functions (`src/helper.py`)
-- `create_model`: Initialize ChatGroq model
-- `get_relevent_document`: Retrieve relevant documents
-- `grade_document`: Evaluate document relevance
-- `generate_answer`: Generate responses
-- `check_hallucination`: Detect factual inaccuracies
-- `grade_answer`: Assess answer quality
+### 📌 Workflow (`src/workflow.py`)
+- **BuildGraph**: Constructs the LangGraph workflow with conditional routing.
+- Supports graph visualization.
 
-### Workflow (`src/workflow.py`)
-- `BuildGraph` class for creating the LangGraph workflow
-- State-based conditional routing
-- Visual graph generation capabilities
+## ⚙️ Configuration
 
-## Configuration
+- **Environment Variables**:
+  - `GROQ_API_KEY`: API key for Groq LLM services.
+- **Vector Store**:
+  - Location: `faiss_index/`
+  - Embeddings: HuggingFace Embeddings
+  - Source: `Data/Final_Research_24474.pdf`
 
-### Environment Variables
-- `GROQ_API_KEY`: API key for Groq LLM service
-- Model configuration in `src/helper.py`
+## 🧪 Development & Testing
 
-### Vector Store
-- Location: `faiss_index/` directory
-- Embedding model: HuggingFace embeddings
-- Document source: `Data/Final_Research_24474.pdf`
-
-## API Reference
-
-### Models
-- **ChatGroq**: LLM provider for generation and evaluation
-- **FAISS**: Vector store for document retrieval
-- **HuggingFaceEmbeddings**: Text embedding model
-
-### Workflow Nodes
-1. `create_model` - Initialize LLM
-2. `get_relevant_documents` - Retrieve documents
-3. `grade_documents` - Evaluate relevance
-4. `generate_answer` - Create response
-5. `check_for_hallucination` - Verify facts
-6. `grade_answer` - Assess quality
-
-## Development
-
-### Code Improvements Made
-- ✅ Removed code duplication in helper functions
-- ✅ Fixed function naming conventions
-- ✅ Enhanced type safety with proper annotations
-- ✅ Improved error handling throughout
-- ✅ Optimized workflow structure
-- ✅ Added comprehensive documentation
-
-### Testing
 ```bash
 # Test vector store creation
 python src/build_index.py
 
 # Test workflow compilation
-python -c "from src.workflow import BuildGraph; graph = BuildGraph().build_graph(); print('Graph compiled successfully')"
+python -c "from src.workflow import BuildGraph; g = BuildGraph().build_graph(); print('✅ Graph compiled')"
 
 # Test chat interface
 python local_chat.py
 ```
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make improvements with proper type annotations
-4. Test all changes thoroughly
-5. Submit a pull request
+1. 🍴 Fork the repository.
+2. 🌱 Create a feature branch (`git checkout -b feature/YourFeature`).
+3. 🛠️ Add improvements with clear comments.
+4. ✅ Test thoroughly.
+5. 🔄 Submit a pull request.
 
-## License
+## 📜 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](LICENSE).
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
-- Built with LangChain and LangGraph
-- Uses Groq for LLM services
-- FAISS for vector similarity search
-- HuggingFace for embeddings
-
-## Support
-
-For issues and questions, please open an issue on the GitHub repository.
+- [LangChain](https://www.langchain.com/) & [LangGraph](https://www.langchain.com/langgraph)
+- [Groq](https://groq.com/) for LLM services
+- [FAISS](https://github.com/facebookresearch/faiss) for vector search
+- [HuggingFace](https://huggingface.co/) for embeddings
