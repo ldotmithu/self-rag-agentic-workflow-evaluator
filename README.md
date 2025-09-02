@@ -118,7 +118,7 @@ self-rag-agentic-workflow-evaluator/
 - **Vector Store**:
   - Location: `faiss_index/`
   - Embeddings: HuggingFace Embeddings
-  - Source: `Data/Final_Research_24474.pdf`
+  - Source: `Data/attention-is-all-you-need-Paper.pdf`
 
 ## 🧪 Development & Testing
 
