@@ -141,6 +141,9 @@ python local_chat.py
 4. ✅ Test thoroughly.
 5. 🔄 Submit a pull request.
 
+## Graph 
+![image](https://github.com/ldotmithu/Dataset/blob/main/1b4af475-f279-491a-b2f9-da536969eaf8.png)
+
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
